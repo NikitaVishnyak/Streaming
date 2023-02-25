@@ -1,0 +1,26 @@
+{% extends 'musicplatform/base.html' %}
+
+{% block content %}
+    {% for playlist_data in playlists_data %}
+        <h2>{{ playlist_data.playlist.name }}</h2>
+
+        <ul>
+            {% for song in playlist_data.songs %}
+            <div class="song_container playlist-song_container">
+                <div class="playbutton">
+                    <p>
+                        ▶
+                    </p>
+                </div>
+                <h3>
+                    {{song.song.name}}
+                </h3>
+                <div class="songduration songduration-smaller">
+                    {{song.song.duration}}
+                </div>
+            </div>
+            <hr>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'musicplatform/base.html' %}
+
+{% block content %}
+{% if songs_result %}
+    <h2>Songs:</h2>
+    <ul>
+        {% for s in songs_result %}
+            <div class="song_container">
+                <div class="playbutton">
+                    <p>
+                        ▶
+                    </p>
+                </div>
+                <h2>
+                    {{s.name}}
+                </h2>
+                <div class="songduration">
+                    {{s.duration}}
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% if playlists_result %}
+    <h2>Playlists:</h2>
+    <ul>
+        {% for p in playlists_result %}
+            <div class="genre_container">
+                <h2>{{ p.name }}</h2>
+                <a href="{{ p.get_absolute_url }}">VIEW SONGS</a>
+            </div>
+            <hr>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% if artists_result %}
+    <h2>Artists:</h2>
+    <ul>
+        {% for a in artists_result %}
+            <a class="artist_container" href="{{ a.get_absolute_url }}">
+                <h2>{{ a.name }}</h2>
+                <p class="artist_country">{{ a.country }}</p>
+            </a>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% if genres_result %}
+    <h2>Genres:</h2>
+    <ul>
+        {% for g in genres_result %}
+            <div class="genre_container">
+                <h2>{{ g.name }}</h2>
+                <a href="{{ g.get_absolute_url }}">VIEW SONGS</a>
+            </div>
+            <hr>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% if not songs_result and not playlists_result and not artists_result and not genres_result %}
+<h2>No results found.</h2>
+<p>Please try another keyword.</p>
+{% endif %}
+{% endblock %}

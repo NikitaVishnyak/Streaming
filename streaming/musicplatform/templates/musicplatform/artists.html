@@ -1,0 +1,12 @@
+{% extends 'musicplatform/base.html' %}
+
+{% block content %}
+    <ul>
+        {% for a in artists %}
+            <a class="artist_container" href="{{ a.get_absolute_url }}">
+                <h2>{{ a.name }}</h2>
+                <p class="artist_country">{{ a.country }}</p>
+            </a>
+        {% endfor %}
+    </ul>
+{% endblock %}

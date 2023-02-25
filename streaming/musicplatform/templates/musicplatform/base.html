@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>{{title}}</title>
+    <link type="text/css" href="{% static 'musicplatform/css/styles.css' %}" rel="stylesheet"/>
+    <link rel="shortcut icon" href="{% static 'musicplatform/images/main.ico' %}" type="image/x-icon"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+</head>
+<body>
+	<div class="container">
+		<a class="toggle-menu" href="#">
+			<i></i>
+			<i></i>
+			<i></i>
+		</a>
+	<div class="menu-drawer">
+		<ul>
+			<li>
+			<form action="{% url 'search' %}" method="get">
+				<input type="text" autocomplete="off"
+				placeholder="Search"
+				name="query" required>
+            	<i class="fa fa-magnifying-glass"></i>
+			</form>
+			</li>
+			<li><a href="{% url 'home' %}">Home</a></li>
+			<li><a href="{% url 'playlists' %}">Playlists</a></li>
+			<li><a href="{% url 'artists' %}">Artists</a></li>
+			<li><a href="{% url 'genres' %}">Genres</a></li>
+		</ul>
+	</div>
+
+	{% block mainmenu %}
+	<div class="header">
+		<ul id="mainmenu" class="mainmenu">
+		<li class="logo"><a href="{% url 'home' %}"><img src="{% static 'musicplatform/images/logo.png'%} " class="logo"></img></a></li>
+<!--		<form action="{% url 'search' %}" method="get">-->
+<!--  			<input type="text" name="query" placeholder="Search">-->
+<!--  			<button type="submit">Search</button>-->
+<!--		</form>-->
+		<h1>SoundWave</h1>
+		</ul>
+		<hr>
+	</div>
+	{% endblock mainmenu %}
+
+	<div class="content-text">
+		{% block content %}
+		{% endblock %}
+	</div>
+
+	<div id="footer">
+		<p>Mykyta Vyshniak</p>
+		<p>&copy; 2023 All rights reserved.</p>
+	</div>
+
+	<script src="{% static 'musicplatform/js/jquery-3.6.3.min.js' %}"></script>
+	<script src="{% static 'musicplatform/js/script.js' %}"></script>
+</body>
+</html>

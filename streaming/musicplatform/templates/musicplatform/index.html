@@ -1,0 +1,22 @@
+{% extends 'musicplatform/base.html' %}
+
+{% block content %}
+    <ul>
+        {% for s in songs %}
+            <div class="song_container">
+                <div class="playbutton">
+                    <p>
+                        ▶
+                    </p>
+                </div>
+                <h2>
+                    {{s.name}}
+                </h2>
+                <div class="songduration">
+                    {{s.duration}}
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
+    </ul>
+{% endblock %}

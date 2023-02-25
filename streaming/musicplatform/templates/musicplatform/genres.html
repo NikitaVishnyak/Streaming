@@ -1,0 +1,13 @@
+{% extends 'musicplatform/base.html' %}
+
+{% block content %}
+    <ul>
+        {% for g in genres %}
+            <div class="genre_container">
+                <h2>{{ g.name }}</h2>
+                <a href="{{ g.get_absolute_url }}">VIEW SONGS</a>
+            </div>
+            <hr>
+        {% endfor %}
+    </ul>
+{% endblock %}

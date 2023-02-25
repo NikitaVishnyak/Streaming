@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 # Create your models here.
@@ -11,12 +12,20 @@ class Artists(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('artists_content', kwargs={'artist_id': self.pk})
+
+    class Meta:
+        verbose_name_plural = 'Artists'
 
 class Countries(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = 'Countries'
 
 
 class Albums(models.Model):
@@ -25,6 +34,12 @@ class Albums(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('songs_in_album', kwargs={'album_id': self.pk})
+
+    class Meta:
+        verbose_name_plural = 'Albums'
 
 
 class Songs(models.Model):
@@ -37,6 +52,9 @@ class Songs(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = 'Songs'
+
 
 class SongsArtists(models.Model):
     song = models.ForeignKey('Songs', on_delete=models.CASCADE, null=False)
@@ -45,6 +63,9 @@ class SongsArtists(models.Model):
     def __str__(self):
         return f'Song: {self.song}; Artist: {self.artist}'
 
+    class Meta:
+        verbose_name_plural = 'Songs artists'
+
 
 class Genres(models.Model):
     name = models.CharField(max_length=50)
@@ -52,12 +73,25 @@ class Genres(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('songs_by_genre', kwargs={'genre_id': self.pk})
+
+    class Meta:
+        verbose_name_plural = 'Genres'
+
 
 class Playlists(models.Model):
     name = models.CharField(max_length=100)
+    songs = models.ManyToManyField('Songs', through='SongsPlaylists', related_name='playlists')
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('songs_in_playlist', kwargs={'playlist_id': self.pk})
+
+    class Meta:
+        verbose_name_plural = 'Playlists'
 
 
 class SongsPlaylists(models.Model):
@@ -67,6 +101,5 @@ class SongsPlaylists(models.Model):
     def __str__(self):
         return f'Song: {self.song}; Playlist: {self.playlist}'
 
-
-
-
+    class Meta:
+        verbose_name_plural = 'Songs playlists'
