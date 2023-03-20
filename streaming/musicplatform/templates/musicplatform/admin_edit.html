@@ -1,0 +1,31 @@
+{% extends 'musicplatform/base.html' %}
+
+{% block content %}
+    <a class="plus-bold" href="{% url 'add_song' %}">+</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Duration</th>
+                <th>Album</th>
+                <th>Genre</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for song in songs %}
+                <tr>
+                    <td>{{ song.pk }}</td>
+                    <td>{{ song.name }}</td>
+                    <td>{{ song.date }}</td>
+                    <td>{{ song.duration }}</td>
+                    <td>{{ song.album }}</td>
+                    <td>{{ song.genre }}</td>
+                    <td><a href="{{ song.get_absolute_url }}">Edit</a></td>
+                    <td><a href="{{ song.get_delete_url }}">Delete</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

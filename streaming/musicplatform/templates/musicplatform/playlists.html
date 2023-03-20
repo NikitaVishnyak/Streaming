@@ -1,11 +1,10 @@
 {% extends 'musicplatform/base.html' %}
 
 {% block content %}
-    {% for playlist_data in playlists_data %}
-        <h2>{{ playlist_data.playlist.name }}</h2>
-
+    {% for playlist in playlists_data %}
+        <h2>{{ playlist.name }}</h2>
         <ul>
-            {% for song in playlist_data.songs %}
+            {% for song in playlist.songs.all %}
             <div class="song_container playlist-song_container">
                 <div class="playbutton">
                     <p>
@@ -13,10 +12,10 @@
                     </p>
                 </div>
                 <h3>
-                    {{song.song.name}}
+                    {{song.name}}
                 </h3>
                 <div class="songduration songduration-smaller">
-                    {{song.song.duration}}
+                    {{song.duration}}
                 </div>
             </div>
             <hr>

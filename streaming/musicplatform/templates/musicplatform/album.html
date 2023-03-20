@@ -2,21 +2,18 @@
 
 {% block content %}
     <ul>
-      {% for a in album %}
-          <h2>{{a.name}}</h2>
-      {% endfor %}
-      
-      {% for s in songs %}
-          <hr>
-          <div class="song_container">
-              <div class="playbutton">
-                  <p>▶</p>
-              </div>
-              <h3>{{s.name}}</h3>
-              <div class="songduration songduration-smaller">
-                  {{s.duration}}
-              </div>
-          </div>
-      {% endfor %}
+        <h2>{{album.name}}</h2>
+        {% for s in songs %}
+            <hr>
+            <div class="song_container">
+                <div class="playbutton">
+                    <p>▶</p>
+                </div>
+                <h3>{{s.name}}</h3>
+                <div class="songduration songduration-smaller">
+                    {{s.duration}}
+                </div>
+            </div>
+        {% endfor %}
     </ul>
 {% endblock %}

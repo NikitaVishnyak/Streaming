@@ -2,21 +2,18 @@
 
 {% block content %}
     <ul>
-      {% for g in genre %}
-          <h2>{{g.name}}</h2>
-      {% endfor %}
-
-      {% for s in songs %}
-          <div class="song_container">
-              <div class="playbutton">
-                  <p>▶</p>
-              </div>
-              <h3>{{s.name}}</h3>
-              <div class="songduration songduration-smaller">
-                  {{s.duration}}
-              </div>
-          </div>
-          <hr>
-      {% endfor %}
+        <h2>{{genre.name}}</h2>
+        {% for s in songs %}
+            <div class="song_container">
+                <div class="playbutton">
+                    <p>▶</p>
+                </div>
+                <h3>{{s.name}}</h3>
+                <div class="songduration songduration-smaller">
+                    {{s.duration}}
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
     </ul>
 {% endblock %}

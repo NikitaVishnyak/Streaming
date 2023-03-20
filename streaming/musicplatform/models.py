@@ -46,11 +46,19 @@ class Songs(models.Model):
     name = models.CharField(max_length=100)
     date = models.DateField(default='1900-01-01')
     duration = models.CharField(default="00:00", max_length=20)
-    album = models.ForeignKey('Albums', related_name='songs', on_delete=models.CASCADE, null=False)
-    genre = models.ForeignKey('Genres', related_name='songs', on_delete=models.CASCADE, null=False)
+    album = models.ForeignKey('Albums', related_name='songs', on_delete=models.CASCADE, blank=True, null=True)
+    genre = models.ForeignKey('Genres', related_name='songs', on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('update_song', kwargs={'song_id': self.pk})
+
+
+
+    def get_delete_url(self):
+        return reverse('song_delete_confirm', args=[str(self.pk)])
 
     class Meta:
         verbose_name_plural = 'Songs'

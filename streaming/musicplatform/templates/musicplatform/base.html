@@ -23,7 +23,7 @@
 			<form action="{% url 'search' %}" method="get">
 				<input type="text" autocomplete="off"
 				placeholder="Search"
-				name="query" required>
+				name="q" required>
             	<i class="fa fa-magnifying-glass"></i>
 			</form>
 			</li>
@@ -31,6 +31,14 @@
 			<li><a href="{% url 'playlists' %}">Playlists</a></li>
 			<li><a href="{% url 'artists' %}">Artists</a></li>
 			<li><a href="{% url 'genres' %}">Genres</a></li>
+			{% if request.user.is_authenticated %}
+			<li><a href="{% url 'logout' %}">Logout</a></li>
+			{% else %}
+			<li><a href="{% url 'sign_in' %}">Login</a></li>
+			{% endif %}
+			{% if user.is_staff or user.superuser %}
+			<li><a href="{% url 'admin_edit' %}">Edit</a></li>
+			{% endif %}
 		</ul>
 	</div>
 
@@ -38,10 +46,6 @@
 	<div class="header">
 		<ul id="mainmenu" class="mainmenu">
 		<li class="logo"><a href="{% url 'home' %}"><img src="{% static 'musicplatform/images/logo.png'%} " class="logo"></img></a></li>
-<!--		<form action="{% url 'search' %}" method="get">-->
-<!--  			<input type="text" name="query" placeholder="Search">-->
-<!--  			<button type="submit">Search</button>-->
-<!--		</form>-->
 		<h1>SoundWave</h1>
 		</ul>
 		<hr>

@@ -1,0 +1,17 @@
+{% extends 'musicplatform/base.html' %}
+
+{% block content %}
+<div class="login-page">
+    <div class="form">
+        <form class="register-form" method="post" autocomplete="off">
+            {% csrf_token %}
+            {% for f in form %}
+                <p>{{ f }}</p>
+                <div class="form-error">{{ f.errors }}</div>
+            {% endfor %}
+            <button type="submit">SIGN UP</button>
+            <p class="message">Already registered? <a href="{% url 'sign_in' %}">Sign In</a></p>
+        </form>
+    </div>
+</div>
+{% endblock %}
