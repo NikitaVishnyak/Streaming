@@ -105,12 +105,12 @@ h3 {
 .menu-drawer {
     width: 400px;
     background-color: #004466;
-    height: 100%;
     position: absolute;
     right: -550px;
     top: 0;
     transition: right linear 0.2s;
-    padding: 50px;
+    padding: 50px 50px 20px 50px;
+    z-index: 1;
 }
 
 .open {
@@ -154,11 +154,12 @@ h3 {
 
 .content-text {
     width: 60%;
-    margin: auto;
+    margin: 10px auto;
+    margin-bottom: 90px;
 }
 
 .content-text ul {
-    margin: 0px 0px 85px 0px;
+    margin: 0px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
 }
 
@@ -339,7 +340,7 @@ i.fa.fa-magnifying-glass {
     color: #fff;
     position: absolute;
     bottom: 0;
-    margin-top: auto;
+
     padding: 8px 50px 8px 0px;
     height: 64px;
     width: 100%;
@@ -435,6 +436,13 @@ select {
     left: 0;
     z-index: 2;
     border: none;
+}
+
+.view_diagrams_button {
+    font-weight: 900;
+    font-size: 25px;
+    text-decoration: none;
+    color: #004565;
 }
 
 @media (max-width: 767px) {

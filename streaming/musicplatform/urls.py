@@ -19,4 +19,5 @@ urlpatterns = [
     path('add-song/', AddSong.as_view(), name='add_song'),
     path('update-song/<int:song_id>/', SongUpdateView.as_view(), name='update_song'),
     path('delete-song/<int:song_id>/', SongDeleteView.as_view(), name='song_delete_confirm'),
+    path('diagrams/', diagrams, name='diagrams'),
 ]

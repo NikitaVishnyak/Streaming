@@ -1,0 +1,8 @@
+{% extends 'musicplatform/base.html' %}
+
+{% block content %}
+    <h2>Comparison of genres by number of songs:</h2>
+    {{ piechart|safe }}
+    <h2>Countries and the number of artists in them:</h2>
+    {{ barchart|safe }}
+{% endblock %}
