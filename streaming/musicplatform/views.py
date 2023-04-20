@@ -16,6 +16,12 @@ from .models import *
 from .utils import *
 from .forms import *
 
+from django.shortcuts import render
+import plotly.graph_objs as go
+from .models import Songs, Artists
+import pandas as pd
+from django.db.models import Count
+
 class HomeView(DataMixin, ListView):
     model = Songs
     template_name = 'musicplatform/index.html'
@@ -224,30 +230,14 @@ class SongDeleteView(DataMixin, DeleteView):
     pk_url_kwarg = 'song_id'
 
 
-from django.shortcuts import render
-import plotly.graph_objs as go
-from .models import Songs, Artists
-import pandas as pd
-from django.db.models import Count
-
 @user_passes_test(lambda u: u.is_staff or u.is_superuser)
 def diagrams(request):
-    # Query to get the count of songs per genre
     genre_count = Songs.objects.values('genre__name').annotate(count=Count('id'))
-
-    # Convert to pandas dataframe
     genre_count_df = pd.DataFrame.from_records(genre_count)
-
-    # Plot pie chart with genre counts
     fig1 = go.Figure(data=[go.Pie(labels=genre_count_df['genre__name'], values=genre_count_df['count'])])
 
-    # Query to get the count of artists per country
     artist_count = Artists.objects.values('country__name').annotate(count=Count('id'))
-
-    # Convert to pandas dataframe
     artist_count_df = pd.DataFrame.from_records(artist_count)
-
-    # Plot bar chart with country counts
     fig2 = go.Figure(data=[go.Bar(x=artist_count_df['country__name'], y=artist_count_df['count'])])
 
     context = {

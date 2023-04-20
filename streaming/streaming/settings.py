@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-(rlij6$1di%#(1%6o@+5vy%h2-e*$=lt18^__py5p-*-@f!7fx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -77,11 +77,11 @@ WSGI_APPLICATION = 'streaming.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'streamingdb',
-        'USER': 'postgres',
-        'PASSWORD': 'Hgyfshbjs8482',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'NAME': os.environ.get('SQL_DB',BASE_DIR / "db.sqlite3"),
+        'USER': os.environ.get('SQL_USER', 'user'),
+        'PASSWORD': os.environ.get('SQL_PASSWORD', 'password'),
+        'HOST': 'db',
+        'PORT': '5432'
     }
 }
 
