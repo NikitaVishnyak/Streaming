@@ -1,26 +1,22 @@
 from datetime import datetime
-from turtledemo.chaos import plot
-
 from django.contrib.auth import logout, login
 from django.contrib.auth.decorators import user_passes_test
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.http import HttpResponse, HttpResponseNotFound
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
-from .models import *
-from .utils import *
-from .forms import *
+from .models import Playlists, Genres, Albums, SongsPlaylists, Songs, Artists
+from .utils import DataMixin
+from .forms import RegisterUserForm, LoginUserForm, AddSongForm
 
-from django.shortcuts import render
 import plotly.graph_objs as go
-from .models import Songs, Artists
 import pandas as pd
 from django.db.models import Count
+
 
 class HomeView(DataMixin, ListView):
     model = Songs
@@ -61,6 +57,7 @@ class SongsByGenreView(DataMixin, ListView):
         context['genre'] = Genres.objects.get(id=genre_id)
         return context
 
+
 class ArtistsView(DataMixin, ListView):
     model = Artists
     template_name = 'musicplatform/artists.html'
@@ -100,14 +97,15 @@ class SongsInAlbumView(DataMixin, ListView):
         context['album'] = Albums.objects.get(id=album_id)
         return context
 
+
 def search(request):
     query = request.GET.get('q')
 
     songs_result = Songs.objects.filter(name__icontains=query) | \
-                 Songs.objects.filter(date__icontains=query)
+                   Songs.objects.filter(date__icontains=query)
     playlists_result = Playlists.objects.filter(name__icontains=query)
     artists_result = Artists.objects.filter(name__icontains=query) | \
-                   Artists.objects.filter(country__name__icontains=query)
+                     Artists.objects.filter(country__name__icontains=query)
     genres_result = Genres.objects.filter(name__icontains=query)
 
     context = {
@@ -122,6 +120,7 @@ def search(request):
         context['data'] = [*songs_result, *playlists_result, *artists_result, *genres_result]
 
     return render(request, 'musicplatform/search.html', context)
+
 
 class SongsInPlaylistView(DataMixin, ListView):
     template_name = 'musicplatform/songs_in_playlist.html'
@@ -138,6 +137,7 @@ class SongsInPlaylistView(DataMixin, ListView):
         context['playlist'] = Playlists.objects.get(id=playlist_id)
         return context
 
+
 class RegisterUser(DataMixin, CreateView):
     form_class = RegisterUserForm
     template_name = 'musicplatform/register.html'
@@ -147,6 +147,7 @@ class RegisterUser(DataMixin, CreateView):
         user = form.save()
         login(self.request, user)
         return redirect('home')
+
 
 class LoginUser(DataMixin, LoginView):
     form_class = LoginUserForm
@@ -160,12 +161,14 @@ def logout_user(request):
     logout(request)
     return redirect('home')
 
+
 def add_data(request):
     return HttpResponse("Add")
 
 
 def is_admin_or_superuser(user):
     return user.is_authenticated and (user.is_superuser or user.is_staff)
+
 
 @method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
 class AdminEditView(DataMixin, ListView):
@@ -175,8 +178,6 @@ class AdminEditView(DataMixin, ListView):
     ordering = ['-id']
 
 
-
-
 @method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
 class AddSong(LoginRequiredMixin, DataMixin, CreateView):
     form_class = AddSongForm
@@ -184,8 +185,6 @@ class AddSong(LoginRequiredMixin, DataMixin, CreateView):
     success_url = reverse_lazy('admin_edit')
     login_url = reverse_lazy('home')
     raise_exception = True
-
-
 
 
 @method_decorator(user_passes_test(is_admin_or_superuser), name='dispatch')
@@ -209,7 +208,6 @@ class SongUpdateView(DataMixin, UpdateView):
             form.add_error('date', 'The date cannot be in the future.')
             return super().form_invalid(form)
         duration = form.cleaned_data['duration']
-
 
         try:
             duration_time = datetime.strptime(duration, '%M:%S').time()

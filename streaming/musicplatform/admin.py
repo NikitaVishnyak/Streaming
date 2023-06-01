@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from musicplatform.models import *
+from musicplatform.models import Artists, Countries, Songs, Albums, SongsArtists, Genres, Playlists, SongsPlaylists
+
 
 class SongsAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'date', 'duration', 'album', 'genre')

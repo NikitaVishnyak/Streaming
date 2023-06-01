@@ -1,6 +1,8 @@
 from django.urls import path, re_path
 
-from .views import *
+from .views import HomeView, PlaylistsView, SongsInPlaylistView, GenresView, SongsByGenreView, ArtistsView, \
+    ArtistsContentView, SongsInAlbumView, search, RegisterUser, LoginUser, logout_user, AdminEditView, AddSong, \
+    SongUpdateView, SongDeleteView, diagrams
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),

@@ -2,8 +2,6 @@ from django.db import models
 from django.urls import reverse
 
 
-# Create your models here.
-
 class Artists(models.Model):
     name = models.CharField(max_length=100)
     country = models.ForeignKey('Countries', related_name='artists', on_delete=models.CASCADE, null=False)
@@ -17,6 +15,7 @@ class Artists(models.Model):
 
     class Meta:
         verbose_name_plural = 'Artists'
+
 
 class Countries(models.Model):
     name = models.CharField(max_length=100)
@@ -54,8 +53,6 @@ class Songs(models.Model):
 
     def get_absolute_url(self):
         return reverse('update_song', kwargs={'song_id': self.pk})
-
-
 
     def get_delete_url(self):
         return reverse('song_delete_confirm', args=[str(self.pk)])

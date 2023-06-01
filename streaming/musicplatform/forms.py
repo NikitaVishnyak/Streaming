@@ -4,8 +4,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from django.forms import TextInput
-from .models import *
+from .models import Songs
 
 
 class AddSongForm(forms.ModelForm):

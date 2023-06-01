@@ -110,7 +110,7 @@ h3 {
     top: 0;
     transition: right linear 0.2s;
     padding: 50px 50px 20px 50px;
-    z-index: 1;
+    z-index: 2;
 }
 
 .open {
