@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from musicplatform.views import *
+from musicplatform.views import pageNotFound
 from django.urls import path, include
 
 urlpatterns = [

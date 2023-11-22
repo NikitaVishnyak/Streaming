@@ -1,4 +1,4 @@
-from django.urls import path, re_path
+from django.urls import path
 
 from .views import HomeView, PlaylistsView, SongsInPlaylistView, GenresView, SongsByGenreView, ArtistsView, \
     ArtistsContentView, SongsInAlbumView, search, RegisterUser, LoginUser, logout_user, AdminEditView, AddSong, \
@@ -15,7 +15,7 @@ urlpatterns = [
     path('albums/<int:album_id>/', SongsInAlbumView.as_view(), name='songs_in_album'),
     path('search/', search, name='search'),
     path('register/', RegisterUser.as_view(), name='sign_up'),
-    path('login/',LoginUser.as_view(), name='sign_in'),
+    path('login/', LoginUser.as_view(), name='sign_in'),
     path('logout/', logout_user, name='logout'),
     path('admin-edit/', AdminEditView.as_view(), name='admin_edit'),
     path('add-song/', AddSong.as_view(), name='add_song'),
